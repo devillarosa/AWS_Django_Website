@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Exercise
+from .models import User, Exercise, Workout
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer to map the Model instance into JSON format."""
@@ -15,4 +15,12 @@ class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
         model = Exercise
-        fields = ('id', 'name')
+        fields = '__all__'
+
+class WorkoutSerializer(serializers.ModelSerializer):
+    """Serializer to map the Model instance into JSON format."""
+
+    class Meta:
+        """Meta class to map serializer's fields with the model fields."""
+        model = Workout
+        fields = '__all__'

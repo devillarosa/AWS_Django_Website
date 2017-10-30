@@ -15,3 +15,22 @@ class Exercise(models.Model):
 
     def __str__(self):
         return self.name
+
+class Workout(models.Model):
+    """This class represents the Workout for an exercise"""
+    date = models.DateField()
+    name = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    weight = models.IntegerField()
+    reps = models.IntegerField()
+    completed_sets = models.IntegerField()
+    max_sets = models.IntegerField()
+
+    def __str__(self):
+        return "{date}: {name} - {weight} lbs, {reps} reps, {completed_sets} out of {max_sets} sets".format(
+            date=self.date,
+            name=self.name,
+            weight=self.weight,
+            reps=self.reps,
+            completed_sets=self.completed_sets,
+            max_sets=self.max_sets,
+            )
