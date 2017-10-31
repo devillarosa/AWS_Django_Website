@@ -9,7 +9,7 @@ from .views import WorkoutCreateView, WorkoutDetailsView
 urlpatterns = [
     # /
     url(r'^$', index, name='index'),
-
+    
     # /user/
     url(r'user/$', UserCreateView.as_view(), name='create_user'),
 
