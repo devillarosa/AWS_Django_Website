@@ -9,7 +9,7 @@ from django.views.generic import View
 from .forms import UserForm
 
 def index(request):
-    return render(request, 'fitness/index.html')
+    return render(request, 'fitness/login.html')
 
 class UserFormView(View):
     form_class = UserForm

@@ -11,6 +11,7 @@ class ExerciseName(models.Model):
         return self.name
 
 class Exercise(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.ForeignKey(ExerciseName, on_delete=models.CASCADE)
     weight = models.IntegerField()
     reps = models.IntegerField()
@@ -27,7 +28,7 @@ class Exercise(models.Model):
         )
 
 class Workout(models.Model):
-    account = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     exercise_list = models.ManyToManyField(Exercise)
 
