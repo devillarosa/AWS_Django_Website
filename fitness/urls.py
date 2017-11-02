@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import index, UserFormView
+from .views import index
 from .api.views import UserCreateView, UserDetailsView
 from .api.views import ExerciseNameCreateView, ExerciseNameDetailsView
 from .api.views import ExerciseCreateView, ExerciseDetailsView
@@ -10,7 +10,11 @@ urlpatterns = [
     # /
     url(r'^$', index, name='index'),
 
-    url(r'^register/$', UserFormView.as_view(), name='register'),
+   # # /login
+   # url(r'^$', index, name='index'),
+   #
+   # # /logout
+   # url(r'^$', index, name='index'),
 
     # /user/
     url(r'api/user/$', UserCreateView.as_view(), name='create_user'),

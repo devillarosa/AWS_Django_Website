@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db.models import Q
-
 from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
@@ -16,12 +14,19 @@ class UserCreateView(generics.ListCreateAPIView):
     permissions_classes = [AllowAny]
 
     def perform_create(self, serializer):
-        serializer.save()
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
 
 class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permissions_classes = [IsAdminUser, IsOwnerOrReadOnly]
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
 
 class ExerciseNameCreateView(generics.ListCreateAPIView):
     queryset = ExerciseName.objects.all()
