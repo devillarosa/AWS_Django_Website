@@ -1,11 +1,5 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from fitness.models import ExerciseName, Exercise, Workout
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password']
 
 class ExerciseNameSerializer(serializers.ModelSerializer):
     class Meta:

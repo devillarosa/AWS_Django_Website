@@ -5,28 +5,11 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
-from .serializers import UserSerializer, ExerciseNameSerializer, ExerciseSerializer, WorkoutSerializer
+from .serializers import ExerciseNameSerializer, ExerciseSerializer, WorkoutSerializer
 from fitness.models import ExerciseName, Exercise, Workout
 
-class UserCreateView(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permissions_classes = [AllowAny]
-
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        instance.set_password(instance.password)
-        instance.save()
-
-class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permissions_classes = [IsAdminUser, IsOwnerOrReadOnly]
-
-    def perform_update(self, serializer):
-        instance = serializer.save()
-        instance.set_password(instance.password)
-        instance.save()
+# Todo: Seperate Creating User from Listing User functionality
+# Only admins can View users, Anyone can create users
 
 class ExerciseNameCreateView(generics.ListCreateAPIView):
     queryset = ExerciseName.objects.all()
