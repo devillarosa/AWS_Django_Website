@@ -2,23 +2,29 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from .serializers import UserSerializer, UserLoginSerializer
+from rest_framework.authtoken.models import Token
 
 # Todo: Seperate Creating User from Listing User functionality
 # Only admins can View users, Anyone can create users
 
-class UserCreateView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permissions_classes = [AllowAny]
+class UserCreateView(APIView):
+    def post(self, request, format='json'):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                token = Token.objects.create(user=user)
+                json = serializer.data
+                json['token'] = token.key
+                return Response(json, status=status.HTTP_201_CREATED)
 
-    def perform_create(self, serializer):
-        serializer.save()
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLoginView(APIView):
     permissions_classes = [AllowAny]

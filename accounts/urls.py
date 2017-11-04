@@ -1,21 +1,20 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 import views
-from .api.views import UserCreateView
+from .api.views import UserCreateView, UserLoginView
 
 urlpatterns = [
 
-    # /login
-    url(r'login/$', views.login, name='login'),
+        # login page
+        #url(r'login/$', views.login, name='login'),
 
-    # /api/register
-    url(r'api/register$', UserCreateView.as_view(), name='login'),
+        # register new user
+        url(r'^api/user/$', UserCreateView.as_view(), name='rest_register'),
 
-   # # /api/login/
-   # url(r'api/login/$', index, name='index'),
+        # login existing user
+        url(r'^api/login/$', UserLoginView.as_view(), name='rest_register'),
 
-   # # /api/logout/
-   # url(r'api/logout/$', index, name='index'),
-    ]
+
+        ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
