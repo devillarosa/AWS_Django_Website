@@ -5,35 +5,21 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
-from .serializers import ExerciseNameSerializer, ExerciseSerializer, WorkoutSerializer
-from fitness.models import ExerciseName, Exercise, Workout
-
-# Todo: Seperate Creating User from Listing User functionality
-# Only admins can View users, Anyone can create users
-
-class ExerciseNameCreateView(generics.ListCreateAPIView):
-    queryset = ExerciseName.objects.all()
-    serializer_class = ExerciseNameSerializer
-    permissions_classes = [IsAdminUser]
-
-    def perform_create(self, serializer):
-        serializer.save()
-
-class ExerciseNameDetailsView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ExerciseName.objects.all()
-    serializer_class = ExerciseNameSerializer
+from .serializers import ExerciseSerializer, WorkoutSerializer
+from fitness.models import Exercise, Workout
 
 class ExerciseCreateView(generics.ListCreateAPIView):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
-    permissions_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    permissions_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save()
 
 class ExerciseDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
+    permissions_classes = [IsAuthenticated]
 
 class WorkoutCreateView(generics.ListCreateAPIView):
     serializer_class = WorkoutSerializer
@@ -47,8 +33,9 @@ class WorkoutCreateView(generics.ListCreateAPIView):
         return queryset
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save()
 
 class WorkoutDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
+    permissions_classes = [IsAuthenticated]

@@ -1,28 +1,35 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from .api.views import ExerciseNameCreateView, ExerciseNameDetailsView
-from .api.views import ExerciseCreateView, ExerciseDetailsView
-from .api.views import WorkoutCreateView, WorkoutDetailsView
+from .api.views import ExerciseCreateView, ExerciseDetailsView, WorkoutCreateView, WorkoutDetailsView
+import views
+
+app_name = 'fitness'
 
 urlpatterns = [
 
-    # /exercisename/
-    url(r'api/exercisename/$', ExerciseNameCreateView.as_view(), name='create_exercisename'),
+    # Home page for user
+    url(r'^home/$', views.home_page, name='home_page'),
 
-    # /exercisename/id
-    url(r'api/exercisename/(?P<pk>[0-9]+)/$', ExerciseNameDetailsView.as_view(), name='details_exercisename'),
+    # Page for adding exercise
+    url(r'^exercise/$', views.exercise_page, name='exercise_page'),
 
-    # /exercise/
-    url(r'api/exercise/$', ExerciseCreateView.as_view(), name='create_exercise'),
+    # Page for logging workout
+    url(r'^workout/$', views.workout_page, name='workout_page'),
 
-    # /exercise/id
-    url(r'api/exercise/(?P<pk>[0-9]+)/$', ExerciseDetailsView.as_view(), name='details_exercise'),
+    # Page for viewing history and statistics
+    url(r'^history/$', views.history_page, name='history_page'),
 
-    # /workout/
-    url(r'api/workout/$', WorkoutCreateView.as_view(), name='create_workout'),
+    # api/exercise/
+    url(r'^api/exercise/$', ExerciseCreateView.as_view(), name='create_exercise'),
 
-    # /workout/id
-    url(r'api/workout/(?P<pk>[0-9]+)/$', WorkoutDetailsView.as_view(), name='details_workout'),
+    # api/exercise/id
+    url(r'^api/exercise/(?P<pk>[0-9]+)/$', ExerciseDetailsView.as_view(), name='details_exercise'),
+
+    # api/workout/
+    url(r'^api/workout/$', WorkoutCreateView.as_view(), name='create_workout'),
+
+    # api/workout/id
+    url(r'^api/workout/(?P<pk>[0-9]+)/$', WorkoutDetailsView.as_view(), name='details_workout'),
 
     ]
 

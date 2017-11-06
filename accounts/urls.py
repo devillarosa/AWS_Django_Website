@@ -9,14 +9,14 @@ app_name = 'accounts'
 
 urlpatterns = [
 
-        # Home page for logging in
+        #  page for logging in
         url(r'^$', views.loginPage, name='loginPage'),
 
         # login user
-        url(r'^login/$', views.login_user , name='login'),
+        url(r'^login/$', views.login_user , name='login_user'),
 
         # logout user
-        url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+        url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout_user'),
 
         # register user
         url(r'^register/$', views.register, name='register'),

@@ -1,7 +1,34 @@
 {% extends 'fitness/base.html' %}
 {% block title %}Home{% endblock %}
 {% block body %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Home Page!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+    </div>
+</div>
 
-
-
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Add Exercises</h2>
+            <p>Start here to enter your exercises</p>
+            <p><a class="btn btn-default" href="{% url 'fitness:exercise_page'%}" role="button">GO &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Log Workouts</h2>
+            <p>Enter how your exercise went for a particular day</p>
+            <p><a class="btn btn-default" href="{% url 'fitness:workout_page'%}" role="button">GO &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>View History</h2>
+            <p>Take a look of hour your workout progress have been</p>
+            <p><a class="btn btn-default" href="{% url 'fitness:history_page'%}" role="button">GO &raquo;</a></p>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+

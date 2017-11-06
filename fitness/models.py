@@ -4,16 +4,17 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import Permission, User
 from django.db import models
 
-class ExerciseName(models.Model):
+class Exercise(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
 
-class Exercise(models.Model):
+class Workout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.ForeignKey(ExerciseName, on_delete=models.CASCADE)
+    date = models.DateField()
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     weight = models.IntegerField()
     reps = models.IntegerField()
     completed_sets = models.IntegerField()
@@ -28,8 +29,4 @@ class Exercise(models.Model):
         max_sets=self.max_sets,
         )
 
-class Workout(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField()
-    exercise_list = models.ManyToManyField(Exercise)
 
