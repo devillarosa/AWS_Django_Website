@@ -123,11 +123,6 @@
     }
 </style>
 <div class="container">
-    {% if user.is_authenticated %}
-        Logged in as {{ user.username}}
-    {% else %}
-        Not Logged in
-    {% endif %}
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-login">
@@ -145,7 +140,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="login-form" role="form" action="{% url 'accounts:login_user'%}" method="post" enctype="multipart" style="display: block;">
+                            <form id="login-form" role="form" action="{% url 'accounts:login'%}" method="post" enctype="multipart" style="display: block;">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
@@ -168,7 +163,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                                <a href="http://54.153.24.115:8000/api/user/" tabindex="5" class="forgot-password">Forgot Password?</a>
+                                                <a href="#" tabindex="5" class="forgot-password">Forgot Password?</a>
                                             </div>
                                         </div>
                                     </div>
@@ -176,9 +171,13 @@
                             </form>
                                 
                                 
-                            <form id="register-form" action="http://54.153.24.115:8000/api/user/" method="post" role="form" style="display: none;">
+                            <form id="register-form" action="{% url 'accounts:register'%}" method="post" role="form" style="display: none;">
+                                {% csrf_token %}
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
                                 </div>
                                 <div
                                   class="form-group">

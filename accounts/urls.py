@@ -13,11 +13,13 @@ urlpatterns = [
         url(r'^$', views.loginPage, name='loginPage'),
 
         # login user
-        url(r'^login_user/$', views.login_user , name='login_user'),
+        url(r'^login/$', views.login_user , name='login'),
 
-        # register new user
-        url(r'^api/user/$', UserCreateView.as_view(), name='rest_register'),
+        # logout user
+        url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
+        # register user
+        url(r'^register/$', views.register, name='register'),
         ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
