@@ -3,17 +3,7 @@
 {% block body %}
 
 <script>
-$(document).ready(function(){
-    var $form = $('#exercise_form');
-    $form.submit(function(){
-        $.post($(this).attr('action'), $(this).serialize(), function(response){
-            // do something here on success
-        },'json');
-        return false;
-    });
-});
-
-$(document).ready(function(){
+var getExercise = function(){
     $.ajax({
         type: 'GET',
         url: "{% url 'fitness:create_exercise'%}",
@@ -28,7 +18,21 @@ $(document).ready(function(){
         }
     });
     return false;
+};
+
+$(document).ready(function(){
+    var $form = $('#exercise_form');
+    $form.submit(function(){
+        $.post($(this).attr('action'), $(this).serialize(), function(response){
+            // do something here on success
+            $('#exercise_list').empty();
+            getExercise();
+        },'json');
+        return false;
+    });
 });
+
+$(document).ready(getExercise());
 </script>
 
 
@@ -48,7 +52,6 @@ $(document).ready(function(){
                     {% csrf_token %}
                     <input type="text" class="form-control" name="name" />
                     <input type="hidden" class="form-control" name="user" value="{{ user.id }}"/>
-                    <div id="server-results"><!-- For server results --></div>
             </div>
             <input type="submit" class="btn btn-primary" name="submit" value="Enter" />
                 </form>
@@ -57,7 +60,8 @@ $(document).ready(function(){
 
         <div class="col-md-6">
             <h2>Your Workouts</h2>
-            <ul class="list-group" id="exercise_list">
+            <ul class="list-group" id="exercise_list" style="overflow-y:auto;max-height:400px;">
+                <!--Populated from AJAX Call -->
             </ul>
         </div>
     </div>
