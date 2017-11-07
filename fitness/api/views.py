@@ -16,6 +16,11 @@ class ExerciseCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
+    def get_queryset(self):
+        user = self.request.user
+        obj_list =  Exercise.objects.filter(user=user)
+        return obj_list.order_by('name')
+
 class ExerciseDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
