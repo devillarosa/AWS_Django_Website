@@ -5,8 +5,13 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
-from .serializers import ExerciseSerializer, WorkoutSerializer
-from fitness.models import Exercise, Workout
+from .serializers import ExerciseNameSerializer, ExerciseSerializer, WorkoutSerializer
+from fitness.models import ExerciseName, Exercise, Workout
+
+class ExerciseNameListView(generics.ListAPIView):
+    queryset = ExerciseName.objects.all()
+    serializer_class = ExerciseNameSerializer
+    permissions_classes = [IsAuthenticated]
 
 class ExerciseCreateView(generics.ListCreateAPIView):
     queryset = Exercise.objects.all()

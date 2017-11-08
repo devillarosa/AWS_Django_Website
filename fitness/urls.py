@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from .api.views import ExerciseCreateView, ExerciseDetailsView, WorkoutCreateView, WorkoutDetailsView
+from .api.views import ExerciseNameListView, ExerciseCreateView, ExerciseDetailsView, WorkoutCreateView, WorkoutDetailsView
 import views
 
 app_name = 'fitness'
@@ -18,6 +18,9 @@ urlpatterns = [
 
     # Page for viewing history and statistics
     url(r'^history/$', views.history_page, name='history_page'),
+
+    # api/exercisename/
+    url(r'^api/exercisename/$', ExerciseNameListView.as_view(), name='exercise_name'),
 
     # api/exercise/
     url(r'^api/exercise/$', ExerciseCreateView.as_view(), name='create_exercise'),

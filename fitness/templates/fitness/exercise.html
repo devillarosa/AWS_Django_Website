@@ -3,6 +3,24 @@
 {% block body %}
 
 <script>
+var getExerciseName = function(){
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'fitness:exercise_name'%}",
+        dataType: 'json',
+        success:function(data){
+            $.each(data, function(index, element) {
+                $('#select_exercise').append($('<option>', {
+                    text: element.name,
+                    value: element.id,
+                    class: "list-group-item",
+                }));
+            });
+        }
+    });
+    return false;
+};
+
 var getExercise = function(){
     $.ajax({
         type: 'GET',
@@ -12,6 +30,7 @@ var getExercise = function(){
             $.each(data, function(index, element) {
                 $('#exercise_list').append($('<li>', {
                     text: element.name,
+                    value: element.id,
                     class: "list-group-item",
                 }));
             });
@@ -24,7 +43,6 @@ $(document).ready(function(){
     var $form = $('#exercise_form');
     $form.submit(function(){
         $.post($(this).attr('action'), $(this).serialize(), function(response){
-            // do something here on success
             $('#exercise_list').empty();
             getExercise();
         },'json');
@@ -33,6 +51,7 @@ $(document).ready(function(){
 });
 
 $(document).ready(getExercise());
+$(document).ready(getExerciseName());
 </script>
 
 
@@ -50,7 +69,10 @@ $(document).ready(getExercise());
             <div class="form-group">
                 <form action="{% url 'fitness:create_exercise'%}" method="post" id="exercise_form">
                     {% csrf_token %}
-                    <input type="text" class="form-control" name="name" />
+                    <label for="select_exercise">Select Exercise:</label>
+                    <select class="form-control" name="name" id="select_exercise">
+                        <!--Populated from AJAX Call -->
+                    </select>
                     <input type="hidden" class="form-control" name="user" value="{{ user.id }}"/>
             </div>
             <input type="submit" class="btn btn-primary" name="submit" value="Enter" />

@@ -1,7 +1,6 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 import views
-from .api.views import UserCreateView, UserLoginView
 from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
 

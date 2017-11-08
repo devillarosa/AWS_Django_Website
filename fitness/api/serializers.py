@@ -1,7 +1,14 @@
 from rest_framework import serializers
-from fitness.models import Exercise, Workout
+from fitness.models import ExerciseName, Exercise, Workout
+
+class ExerciseNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExerciseName
+        fields = '__all__'
 
 class ExerciseSerializer(serializers.ModelSerializer):
+    name = serializers.StringRelatedField(read_only=True)
+
     class Meta:
         model = Exercise
         fields = '__all__'
