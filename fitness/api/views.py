@@ -5,47 +5,6 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
-from .serializers import ExerciseNameSerializer, ExerciseSerializer, WorkoutSerializer
-from fitness.models import ExerciseName, Exercise, Workout
+from .serializers import ExerciseSerializer, UserUserUserExerciseSerializer, WorkoutSerializer
+from fitness.models import Exercise, UserUserUserExercise, Workout
 
-class ExerciseNameListView(generics.ListAPIView):
-    queryset = ExerciseName.objects.all()
-    serializer_class = ExerciseNameSerializer
-    permissions_classes = [IsAuthenticated]
-
-class ExerciseCreateView(generics.ListCreateAPIView):
-    queryset = Exercise.objects.all()
-    serializer_class = ExerciseSerializer
-    permissions_classes = [IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save()
-
-    def get_queryset(self):
-        user = self.request.user
-        obj_list =  Exercise.objects.filter(user=user)
-        return obj_list.order_by('name')
-
-class ExerciseDetailsView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Exercise.objects.all()
-    serializer_class = ExerciseSerializer
-    permissions_classes = [IsAuthenticated]
-
-class WorkoutCreateView(generics.ListCreateAPIView):
-    serializer_class = WorkoutSerializer
-    permissions_classes = [IsAuthenticated]
-
-    def get_queryset(self, *args, **kargs):
-        queryset = Workout.objects.filter(user=self.request.user)
-        date = self.request.query_params.get('date', None)
-        if date is not None:
-            queryset = queryset.filter(date=date)
-        return queryset
-
-    def perform_create(self, serializer):
-        serializer.save()
-
-class WorkoutDetailsView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Workout.objects.all()
-    serializer_class = WorkoutSerializer
-    permissions_classes = [IsAuthenticated]

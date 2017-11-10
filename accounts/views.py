@@ -5,13 +5,6 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-def loginPage(request):
-    if request.user.is_authenticated():
-        return render(request, 'fitness/home.html')
-    else:
-        return render(request, 'accounts/login.html')
-    return render(request, 'accounts/login.html')
-
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']

@@ -9,7 +9,7 @@ app_name = 'accounts'
 urlpatterns = [
 
         #  page for logging in
-        url(r'^$', views.loginPage, name='loginPage'),
+        url(r'^$', TemplateView.as_view(template_name="accounts/login.html"), name='loginPage'),
 
         # login user
         url(r'^login/$', views.login_user , name='login_user'),
