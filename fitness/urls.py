@@ -2,6 +2,7 @@ from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 from .api.views.exercise import ExerciseView, ExerciseDetailsView
 from .api.views.user_exercise import UserExerciseView, UserExerciseDetailsView
+from .api.views.workout import WorkoutView, WorkoutDetailsView
 
 app_name = 'fitness'
 
@@ -20,10 +21,10 @@ urlpatterns = [
     url(r'^api/userexercise/(?P<pk>[0-9]+)/$', UserExerciseDetailsView.as_view(), name='details_user_exercise'),
 
     # api/workout/
-#    url(r'^api/workout/$', WorkoutCreateView.as_view(), name='workout'),
+    url(r'^api/workout/$', WorkoutView.as_view(), name='workout'),
 
     # api/workout/id
-#    url(r'^api/workout/(?P<pk>[0-9]+)/$', WorkoutDetailsView.as_view(), name='details_workout'),
+    url(r'^api/workout/(?P<pk>[0-9]+)/$', WorkoutDetailsView.as_view(), name='details_workout'),
 
     ]
 

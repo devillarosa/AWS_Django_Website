@@ -12,23 +12,13 @@ from fitness.api.serializers import UserExerciseSerializer
 class UserExerciseView(APIView):
 
     def get(self, request):
-
-        if request.user.is_superuser:
-            user_exercise = UserExercise.objects.all()
-        else:
-            user_exercise = UserExercise.objects.filter(user=request.user.id)
-
+        user_exercise = UserExercise.objects.all()
         serializer = UserExerciseSerializer(user_exercise, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-
         user = request.data['user']
         exercise = request.data['exercise']
-
-        if user != request.user.id and not request.user.is_superuser:
-              return HttpResponse("Unauthorized to make this post", status=400)
-
 
         if UserExercise.objects.filter(user=user, exercise=exercise).count():
             return HttpResponse("Entry already exists", status=400)
@@ -43,14 +33,10 @@ class UserExerciseDetailsView(APIView):
 
     def get(self, request, pk):
         user_exercise = get_object_or_404(UserExercise, pk=pk)
-        if user_exercise.user.id != request.user.id and not request.user.is_superuser:
-              return HttpResponse("Unauthorized to access data", status=400)
         serializer = UserExerciseSerializer(user_exercise)
         return Response(serializer.data)
 
     def delete(self, request, pk):
         user_exercise = get_object_or_404(UserExercise, pk=pk)
-        if user_exercise.user.id != request.user.id and not request.user.is_superuser:
-              return HttpResponse("Unauthorized to delete", status=400)
         user_exercise.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
