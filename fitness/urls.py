@@ -1,27 +1,17 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from django.views.generic import TemplateView
-import views
+from .api.views.exercise import ExerciseView, ExerciseDetailsView
 from .api.views.user_exercise import UserExerciseView, UserExerciseDetailsView
 
 app_name = 'fitness'
 
 urlpatterns = [
 
-    # Home page for user
-    url(r'^home/$', views.home_page, name='home_page'),
+    # api/userexerciselist/
+    url(r'^api/exercise/$', ExerciseView.as_view(), name='exercise'),
 
-    # Page for adding exercise
-    url(r'^exercise/$', views.exercise_page, name='exercise_page'),
-
-    # Page for logging workout
-    url(r'^workout/$', views.workout_page, name='workout_page'),
-
-    # Page for viewing history and statistics
-    url(r'^history/$', views.history_page, name='history_page'),
-
-
-    ### Fitness API URLS ###
+    # api/userexercise/id
+    url(r'^api/exercise/(?P<pk>[0-9]+)/$', ExerciseDetailsView.as_view(), name='details_exercise'),
 
     # api/userexerciselist/
     url(r'^api/userexercise/$', UserExerciseView.as_view(), name='user_exercise'),
