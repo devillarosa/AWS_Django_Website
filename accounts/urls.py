@@ -8,14 +8,11 @@ app_name = 'accounts'
 
 urlpatterns = [
 
-        #  page for logging in
-        url(r'^$', TemplateView.as_view(template_name="accounts/login.html"), name='loginPage'),
-
         # login user
         url(r'^login/$', views.login_user , name='login_user'),
 
         # logout user
-        url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout_user'),
+        url(r'^logout/$', auth_views.logout,  name='logout_user'),
 
         # register user
         url(r'^register/$', views.register, name='register'),

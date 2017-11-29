@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
     'accounts',
     'fitness',
     ]
@@ -89,12 +94,9 @@ DATABASES = {
 REST_FRAMEWORK = {
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework.authentication.SessionAuthentication',
-            ),
-        'DEFAULT_PERMISSION_CLASSES': (
-            'rest_framework.permissions.AllowAny',
-            ),
+            'rest_framework.authentication.TokenAuthentication',
+            )
         }
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
