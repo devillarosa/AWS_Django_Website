@@ -7,6 +7,7 @@ import { Link, Route, Switch } from 'react-router-dom'
 import  Home from './pages/home/Home';
 import Exercise from './pages/exercise/Exercise'; 
 import Workout from './pages/workout/Workout'; 
+import History from './pages/history/History'; 
 import NotFound from './pages/notfound/NotFound'; 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
               <ul className="nav navbar-nav">
                 <li><Link to="/exercise">Exercise</Link></li>
                 <li><Link to="/workout">Workouts</Link></li>
+                <li><Link to="/history">History</Link></li>
               </ul>
             </div>
           </nav>
@@ -33,18 +35,11 @@ class App extends Component {
             <Route exact path="/" component={Home}/>
             <Route path="/exercise" component={Exercise}/>
             <Route path="/workout" component={Workout}/> 
+            <Route path="/history" component={History}/> 
             <Route path="*" component={NotFound}/> 
           </Switch>
-
-
-
-
-
-
-
-
-
           </div>
+
         </div>
        );
     }
