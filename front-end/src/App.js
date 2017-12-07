@@ -4,7 +4,6 @@ import './App.css';
 
 import { Link, Route, Switch } from 'react-router-dom'
 
-import { BrowserRouter } from 'react-router-dom';
 import  Home from './pages/home/Home';
 import Exercise from './pages/exercise/Exercise'; 
 import Workout from './pages/workout/Workout'; 
