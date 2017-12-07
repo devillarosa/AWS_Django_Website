@@ -13,21 +13,24 @@ class App extends Component {
   render() {
 
     return (
-      <div>
-        <nav className="navbar navbar-light">
-          <ul className="nav navbar-nav">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/exercise">Exercise</Link></li>
-            <li><Link to="/workout">Workouts</Link></li>
-          </ul> 
-        </nav>
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path="/exercise" component={Exercise}/>
-          <Route path="/workout" component={Workout}/> 
-          <Route path="*" component={NotFound}/> 
-        </Switch>
+      <div className="App">
+        <div className="container-fluid page-container">
 
+          <nav className="navbar navbar-light">
+            <ul className="nav navbar-nav">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/exercise">Exercise</Link></li>
+              <li><Link to="/workout">Workouts</Link></li>
+            </ul> 
+          </nav>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/exercise" component={Exercise}/>
+            <Route path="/workout" component={Workout}/> 
+            <Route path="*" component={NotFound}/> 
+          </Switch>
+
+          </div>
         </div>
        );
     }
