@@ -14,21 +14,35 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="container-fluid page-container">
-
-          <nav className="navbar navbar-light">
-            <ul className="nav navbar-nav">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/exercise">Exercise</Link></li>
-              <li><Link to="/workout">Workouts</Link></li>
-            </ul> 
+        <div className="container-fluid">
+          <nav className="navbar navbar-inverse">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <div className="navbar-brand">
+                    <Link to="/">Django Fitness</Link>
+                </div>
+              </div>
+              <ul className="nav navbar-nav">
+                <li><Link to="/exercise">Exercise</Link></li>
+                <li><Link to="/workout">Workouts</Link></li>
+              </ul>
+            </div>
           </nav>
+          
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route path="/exercise" component={Exercise}/>
             <Route path="/workout" component={Workout}/> 
             <Route path="*" component={NotFound}/> 
           </Switch>
+
+
+
+
+
+
+
+
 
           </div>
         </div>
